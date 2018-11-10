@@ -30,23 +30,31 @@ if INDEX > 1 && MODE ~= 4 && MODE ~= 6
     % Access current data point
     i = INDEX;
     if (~DATA(INDEX,1))
-            i = i - 1;
-        end
+        i = i - 1;
+    end
     if (RECORDED_DATA_VERSION == 81)
-        time = (DATA(i,1) - t_0)/1e6;
+        time = (DATA(i,1) - t_0)*1e-6;
         p_o  = DATA(i,4);
         p_c  = DATA(i,5);
         t_o  = DATA(i,6);
         t_c  = DATA(i,7);
         thr  = DATA(i,8);
     elseif (RECORDED_DATA_VERSION == 82)
-        time = (DATA(i,1) - t_0)/1e6;
+        time = (DATA(i,1) - t_0)*1e-6;
         p_o  = DATA(i,4);
         p_c  = DATA(i,5);
         t_o  = DATA(i,6);
         t_c  = DATA(i,7);
         tpc  = DATA(i,8);
         thr  = DATA(i,9);
+    elseif (RECORDED_DATA_VERSION == 64)
+        time = (DATA(i,1) - t_0)*1e-6;
+        t_c  = DATA(i,4);
+        thr  = DATA(i,5);
+        p_o  = NaN;
+        p_c  = NaN;
+        t_o  = NaN;
+        tpc  = NaN;
     end
     
 
@@ -85,6 +93,14 @@ if (IS_PLOTTING && (MODE == 2 || MODE == 5))
         t_c  = DATA(j:INDEX,7);
         tpc  = DATA(j:INDEX,8);
         thr  = DATA(j:INDEX,9);
+    elseif (RECORDED_DATA_VERSION == 64)
+        time = (DATA(j:INDEX,1) - t_0)/1e6;
+        p_o  = NaN;
+        p_c  = NaN;
+        t_o  = NaN;
+        t_c  = DATA(j:INDEX,4);
+        tpc  = NaN;
+        thr  = DATA(j:INDEX,5);
     end
 
     % Plot data, as long as you (probably) have enough time to plot

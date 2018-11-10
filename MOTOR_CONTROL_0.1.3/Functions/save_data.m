@@ -41,7 +41,20 @@ switch RECORDED_DATA_VERSION
             end
             fprintf(fid, '\n');
         end
-        
+    case 64 % Solid Static Fire
+        fprintf(fid, ...
+        'Time,Mode,Status,Temperature_C,LoadCell,New_Data,Checksum\n');
+        for i = 1:INDEX
+            fprintf(fid, '%d', DATA(i,1));
+            fprintf(fid, ',%d', DATA(i,2));
+            fprintf(fid, ',%d', DATA(i,3));
+            for j = 4:5
+                fprintf(fid, ',%.8f', DATA(i,j));
+            end
+            fprintf(fid, ',%d', DATA(i,6)); % Status
+            fprintf(fid, ',%d', DATA(i,7)); % Checksum
+            fprintf(fid, '\n');
+        end
     case 81 % Cold Flow Testing Data 2
         fprintf(fid, ...
         'Time,Mode,Status,Pressure_O,Pressure_C,Temperature_O,Temperature_C,Thrust,New_Data,Checksum\n');
@@ -52,6 +65,8 @@ switch RECORDED_DATA_VERSION
             for j = 4:10
                 fprintf(fid, ',%.8f', DATA(i,j));
             end
+            fprintf(fid, ',%d', DATA(i,9)); % Status
+            fprintf(fid, ',%d', DATA(i,10)); % Checksum
             fprintf(fid, '\n');
         end
     case 82 % Cold Flow Testing Data 2
@@ -64,6 +79,8 @@ switch RECORDED_DATA_VERSION
             for j = 4:11
                 fprintf(fid, ',%.8f', DATA(i,j));
             end
+            fprintf(fid, ',%d', DATA(i,10)); % Status
+            fprintf(fid, ',%d', DATA(i,11)); % Checksum
             fprintf(fid, '\n');
         end
 end

@@ -69,9 +69,7 @@ try
         version_str = fscanf(SERIAL_PORT);
 
         % Write parameters to Arduino
-        fwrite(SERIAL_PORT, hex_to_byte_array('0xAA 0x14 0x04 0x20'), 'uint8'); % Write parameters command
-        fwrite(SERIAL_PORT, data_rate*1000, 'uint16');
-        fwrite(SERIAL_PORT, max_time, 'uint8');
+        fwrite(SERIAL_PORT, hex_to_byte_array('0xAA 0x14 0x02 0x36 0x40'), 'uint8'); % Write parameters command
         
         % Initialize window firmware text
         set(window_handle.firmwaretext, 'String', version_str(1:end-1));
@@ -114,7 +112,7 @@ try
             % Write collected data to stored data array
             if (MODE && ~isempty(data_curr))
                 [m,n] = size(data_curr);
-                [length(DATA), INDEX, m];
+%                 [length(DATA), INDEX, m];
                 DATA(INDEX:INDEX+m-1,1:n) = data_curr;
             end
             

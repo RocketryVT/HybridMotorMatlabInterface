@@ -174,21 +174,25 @@ function pushbuttonstop_Callback(hObject, eventdata, handles)
 
     config
 
-    MODE = 4;
+    MODE = 0;
     
     % Disable all buttons
-    handles.togglefire.Enable = 'off';
-    handles.pushbuttonstop.Enable = 'off';
     handles.togglearm.Enable = 'off';
+    handles.togglearm.Value = 0;
+    handles.togglefire.Enable = 'off';
+    handles.togglefire.Value = 0;
+    handles.pushbuttonstop.Enable = 'off';
     handles.simulatebutton.Enable = 'off';
     handles.savebutton.Enable = 'on';
     
 
     % TODO: STOP actions
     if (IS_CONNECTED)
-        set_Arduino_Mode(4);
+        set_Arduino_Mode(0);
         update_input_buffer();
         parse_input_buffer();
+        
+        handles.ModeTextBox.String = num2str(ARDMODE);
     end
     
     

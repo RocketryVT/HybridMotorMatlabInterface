@@ -48,11 +48,11 @@ while (i < BUFF_LENGTH)
         
         % Read packets
         if (INPUT_BUFF(i) == 1)
-            fprintf('IT"S NUMBER 1!!\n');
+            % Nothing
         elseif (INPUT_BUFF(i) == 2)
-            fprintf('IT"S NUMBER 2!!\n');
+            % Nothing
         elseif (INPUT_BUFF(i) == 16)
-            ARDMODE =INPUT_BUFF(i+1);
+            ARDMODE = INPUT_BUFF(i+1);
         elseif (INPUT_BUFF(i) == 80) % Simulated packet 1
             data_curr(row,1) = toc - t_0; % time
             data_curr(row,2) = INPUT_BUFF(i+1); % mode
@@ -65,6 +65,47 @@ while (i < BUFF_LENGTH)
             data_curr(row,9) = INPUT_BUFF(i+8); % new data flag
             row = row + 1;
             RECORDED_DATA_VERSION = 80;
+        elseif (INPUT_BUFF(i) == 64)
+            % time
+            a = bitshift(INPUT_BUFF(i+1), 24);
+            b = bitshift(INPUT_BUFF(i+2), 16);
+            c = bitshift(INPUT_BUFF(i+3), 8);
+            d = bitshift(INPUT_BUFF(i+4), 0);
+            data_curr(row,1) = bitor(bitor(bitor(a,b),c),d);
+            
+            % mode
+            data_curr(row,2) = INPUT_BUFF(i+5);
+            ARDMODE = data_curr(row,2);
+            
+            % error status
+            a = cast(INPUT_BUFF(i+6),'uint16');
+            b = cast(INPUT_BUFF(i+7),'uint16');
+            data_curr(row,3) = cast(bitor(bitshift(a,8),b),'double');
+            
+            % temperature_combustion
+            a = INPUT_BUFF(i+8);
+            b = INPUT_BUFF(i+9);
+            c = INPUT_BUFF(i+10);
+            d = INPUT_BUFF(i+11);
+            data_curr(row,4) = bytes_to_float(a,b,c,d);
+            
+            % thrust
+            a = INPUT_BUFF(i+12);
+            b = INPUT_BUFF(i+13);
+            c = INPUT_BUFF(i+14);
+            d = INPUT_BUFF(i+15);
+            data_curr(row,5) = bytes_to_float(a,b,c,d);
+            
+            % new data flag
+            data_curr(row,6) = INPUT_BUFF(i+16);
+            
+            % Checksum
+            c = bitshift(INPUT_BUFF(i+17), 8);
+            d = bitshift(INPUT_BUFF(i+18), 0);
+            data_curr(row,7) = bitor(c,d);
+            
+            row = row + 1;
+            RECORDED_DATA_VERSION = 64;
         elseif (INPUT_BUFF(i) == 81)
             % time
             a = bitshift(INPUT_BUFF(i+1), 24);
@@ -119,6 +160,11 @@ while (i < BUFF_LENGTH)
             
             % new data flag
             data_curr(row,9) = INPUT_BUFF(i+28);
+            
+            % Checksum
+            c = bitshift(INPUT_BUFF(i+29), 8);
+            d = bitshift(INPUT_BUFF(i+30), 0);
+            data_curr(row,10) = bitor(c,d);
             
             row = row + 1;
             RECORDED_DATA_VERSION = 81;
@@ -183,6 +229,11 @@ while (i < BUFF_LENGTH)
             
             % new data flag
             data_curr(row,10) = INPUT_BUFF(i+32);
+            
+            % Checksum
+            c = bitshift(INPUT_BUFF(i+33), 8);
+            d = bitshift(INPUT_BUFF(i+34), 0);
+            data_curr(row,11) = bitor(c,d);
             
             row = row + 1;
             RECORDED_DATA_VERSION = 82;
