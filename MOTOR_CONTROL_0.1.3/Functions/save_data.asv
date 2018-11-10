@@ -24,7 +24,7 @@ switch RECORDED_DATA_VERSION
         fprintf(fid, ...
         'Time,Mode,Status,Pressure_O,Pressure_C,Temperature_O,Temperature_C,Thrust,New_Data,Checksum\n');
         for i = 1:INDEX
-            fprintf(fid, '%.5f', DATA(i,1)*1e-6);
+            fprintf(fid, '%.5f', DATA(i,1));
             for j = 2:10
                 fprintf(fid, ',%.5f', DATA(i,j));
             end
@@ -35,7 +35,7 @@ switch RECORDED_DATA_VERSION
         fprintf(fid, ...
         'Time,Mode,Status,Pressure_O,Pressure_C,Temperature_O,Temperature_C,Thrust,New_Data,Checksum\n');
         for i = 1:INDEX
-            fprintf(fid, '%.5f', DATA(i,1)*1e-6);
+            fprintf(fid, '%.5f', DATA(i,1));
             for j = 2:10
                 fprintf(fid, ',%.5f', DATA(i,j));
             end
@@ -45,7 +45,7 @@ switch RECORDED_DATA_VERSION
         fprintf(fid, ...
         'Time,Mode,Status,Temperature_C,LoadCell,New_Data,Checksum\n');
         for i = 1:INDEX
-            fprintf(fid, '%d', DATA(i,1)*1e-6);
+            fprintf(fid, '%d', DATA(i,1))*1e-6;
             fprintf(fid, ',%d', DATA(i,2));
             fprintf(fid, ',%d', DATA(i,3));
             for j = 4:5
@@ -59,7 +59,7 @@ switch RECORDED_DATA_VERSION
         fprintf(fid, ...
         'Time,Mode,Status,Pressure_O,Pressure_C,Temperature_O,Temperature_C,Thrust,New_Data,Checksum\n');
         for i = 1:INDEX
-            fprintf(fid, '%d', DATA(i,1)*1e-6);
+            fprintf(fid, '%d', DATA(i,1))*1e-6;
             fprintf(fid, ',%d', DATA(i,2));
             fprintf(fid, ',%d', DATA(i,3));
             for j = 4:10
@@ -73,7 +73,7 @@ switch RECORDED_DATA_VERSION
         fprintf(fid, ...
         'Time,Mode,Status,Pressure_O,Pressure_C,Temperature_O,Temperature_C,Temperature_Post-C,Thrust,New_Data,Checksum\n');
         for i = 1:INDEX
-            fprintf(fid, '%d', DATA(i,1)*1e-6);
+            fprintf(fid, '%d', DATA(i,1))*1e-6;
             fprintf(fid, ',%d', DATA(i,2));
             fprintf(fid, ',%d', DATA(i,3));
             for j = 4:11
