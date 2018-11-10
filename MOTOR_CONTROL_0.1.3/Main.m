@@ -66,6 +66,7 @@ try
         fwrite(SERIAL_PORT, hex_to_byte_array('0xFF 0xFF 0xFF 0xFF'), 'uint8');
         pause(0.01);
         fwrite(SERIAL_PORT, hex_to_byte_array('0xFF 0xFF 0xFF 0xFF'), 'uint8');
+        pause(0.01);
         version_str = fscanf(SERIAL_PORT);
 
         % Write parameters to Arduino
