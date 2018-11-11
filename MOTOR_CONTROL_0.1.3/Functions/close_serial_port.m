@@ -6,6 +6,7 @@ config;
 
 try
     fclose(SERIAL_PORT);
+    pause(0.1);
     delete(SERIAL_PORT);
     fclose all
 catch

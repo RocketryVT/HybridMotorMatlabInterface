@@ -170,12 +170,14 @@ try
     fwrite(SERIAL_PORT, endmssg, 'uint8');
     fclose(SERIAL_PORT);
     delete(SERIAL_PORT);
+    clear SERIAL_PORT
 catch
-    try 
+    try
         fopen(SERIAL_PORT);
         fwrite(SERIAL_PORT, endmssg, 'uint8');
         fclose(SERIAL_PORT);
         delete(SERIAL_PORT);
+        clear SERIAL_PORT
     catch
         beep
     end
