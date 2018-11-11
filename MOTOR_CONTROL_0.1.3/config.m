@@ -6,7 +6,7 @@ global SERIAL_PORT INPUT_BUFF BUFF_LENGTH DATA INDEX MODE IS_PLOTTING START_TIME
 % COM Port data
 port_number = 'COM4';
 baud_rate = 38400;
-timeout = 1;
+timeout = 3;
 BUFF = 10000;
 
 % Arduino parameters
